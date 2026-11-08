@@ -85,6 +85,7 @@ mkdir -p "${FAMILY_OFFICE:-$HOME/family-office}"
 echo "Хранилище семейного офиса: ${FAMILY_OFFICE:-$HOME/family-office}"
 if [[ -z "$PY" ]]; then echo "Python не найден в PATH (нужен python3, python или py)"; exit 1; fi
 "$PY" -m pip install --user --quiet pypdf 2>/dev/null || echo "pypdf не установлен — для чтения PDF: pip install pypdf"
+"$PY" "$SKILL_SRC/scripts/wiki.py" init >/dev/null 2>&1 && echo "База знаний Obsidian готова: откройте хранилище в Obsidian (python wiki.py path)"
 echo "Проверка доступа к MOEX..."
 "$PY" "$SKILL_SRC/scripts/moex_share.py" SBER | head -3 || echo "MOEX ISS недоступен — проверьте сеть"
 echo "Дальше: скажите агенту «мой портфель: SBER, LKOH, MGNT» и попросите присылать брифинг каждый будний день в 19:15."

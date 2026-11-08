@@ -104,8 +104,11 @@ def today():
 # ---------- Рабочий стол (папки акций) ----------
 def desk_root():
     """Корень хранилища семейного офиса: ~/family-office, переопределяется переменной FAMILY_OFFICE.
-    Чтобы делить папки акций с агентом ru-stocks-agent, укажите FAMILY_OFFICE=<ваш stocks-desk>."""
-    root = os.environ.get("FAMILY_OFFICE") or os.path.join(os.path.expanduser("~"), "family-office")
+    Чтобы делить папки акций с агентом ru-stocks-agent, укажите FAMILY_OFFICE=<ваш stocks-desk>.
+    При INVEST_VAULT (и без FAMILY_OFFICE) корень — INVEST_VAULT/stocks, общий с агентом акций."""
+    vault = os.environ.get("INVEST_VAULT")  # общее Obsidian-хранилище агентов: папки бумаг общие с ru-stocks-agent
+    root = os.environ.get("FAMILY_OFFICE") or (os.path.join(vault, "stocks") if vault else
+                                                os.path.join(os.path.expanduser("~"), "family-office"))
     os.makedirs(root, exist_ok=True)
     return root
 

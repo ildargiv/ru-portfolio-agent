@@ -2,9 +2,9 @@
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-0E7A5C) ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white) ![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-ready-555) ![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-555) ![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-D97757) ![Codex CLI](https://img.shields.io/badge/Codex%20CLI-ready-555)
 
-**Открытый ИИ-агент для ведения портфеля акций Мосбиржи** для Hermes Agent, OpenClaw, Claude Code и Codex CLI: ежедневный брифинг после закрытия торгов, недельный обзор против IMOEX, риск, дивиденды и отсечки, инвесткомитет по событиям.
+**Открытый ИИ-агент для ведения портфеля акций Мосбиржи** для Hermes Agent, OpenClaw, Claude Code и Codex CLI: ежедневный брифинг после закрытия торгов, недельный обзор против IMOEX, риск, дивиденды и отсечки, инвесткомитет по событиям, база знаний в Obsidian.
 
-[Презентация агента](https://ildargiv.github.io/ru-portfolio-agent/) · [English](#english) · [Семейство агентов](#семейство-агентов) · [Установка](#установка)
+[Презентация агента](https://ildargiv.github.io/ru-portfolio-agent/) · [English](#english) · [База знаний в Obsidian](#база-знаний-в-obsidian) · [Семейство агентов](#семейство-агентов) · [Установка](#установка)
 
 ![Семейный офис: ИИ-агент для портфеля акций Мосбиржи, брифинг по сессии против IMOEX](docs/preview.png)
 
@@ -15,6 +15,7 @@
 - **Недельный обзор.** Доходность портфеля против IMOEX за неделю, месяц, квартал, год и с начала года; волатильность, бета, просадка, связанные бумаги, вклад каждой позиции, «здоровье» тезисов, календарь на две недели.
 - **Инвесткомитет по бумаге.** Если событие задевает тезис (отчёт, смена дивполитики, движение больше 15%, сработал триггер), созывается комитет: независимые мнения экспертов, атака адвоката дьявола, оценка (мультипликаторы, DCF, обратный DCF, дивмодель), голосование, решение CIO с триггерами пересмотра.
 - **Папка на каждую бумагу.** Отчёты МСФО/РСБУ, новости, история цен и дивидендов, тезис, протоколы — всё копится в `~/family-office/<ТИКЕР>/`, и каждый следующий разбор опирается на предыдущий.
+- **База знаний в Obsidian.** Хранилище — LLM-вики: хаб-заметка на каждую бумагу, конспекты отчётов, журнал того, что агент узнал, проверка на противоречия и цифры без источника, недельный дайджест. Портфель и количества в заметки не попадают.
 
 ## Состав
 ```
@@ -31,6 +32,7 @@ skills/finance/ru-portfolio/
     report-template.md                 брифинг, сообщение владельцу, обзор, протокол комитета
     analysis-framework.md              методология: бизнес, финансы, оценка, дивиденды, корпоративное управление РФ
     desk-structure.md                  что лежит в хранилище
+    wiki.md                            база знаний: формат Obsidian-вики, общий для всех агентов семейства
     data-sources.md / reading-reports.md / news-forums.md
   scripts/
     portfolio.py                       портфель, сделки, разбор торговой сессии, недельный обзор
@@ -39,19 +41,33 @@ skills/finance/ru-portfolio/
     moex_share.py                      карточка бумаги: рынок, доходность против IMOEX, дивиденды
     gir_bo.py / report_extract.py      РСБУ из ГИР БО, чтение PDF-отчётов
     valuation.py                       мультипликаторы, DCF, обратный DCF, модель Гордона
+    wiki.py                            база знаний Obsidian: хабы, index, log, поиск, проверка, дайджест
 ```
 
 ## Хранилище
 ```
-~/family-office/
+~/family-office/                       открывается в Obsidian как хранилище
+  index.md  log.md  topics/  digests/  _templates/   база знаний (вики)
   portfolio.json      ваш портфель                 watchlist.json   все бумаги с папками
   _portfolio/
     briefs/           ежедневные брифинги          reviews/         недельные обзоры
     daily/            данные разбора сессий        history.csv      день портфеля против IMOEX
     journal.md        хронология портфеля
-  SBER/               README, thesis, journal, analyses/, market/, financials/, reports/, news/, forums/
+  SBER/               SBER.md (хаб), README, thesis, journal, analyses/, market/, financials/, reports/, news/, forums/
 ```
-Корень меняется переменной `FAMILY_OFFICE`. Если у вас стоит ru-stocks-agent, можно указать `FAMILY_OFFICE` = его `STOCKS_DESK`: структура папок совместима, оба агента будут работать с одними и теми же папками.
+Корень меняется переменной `FAMILY_OFFICE`. Если у вас стоит ru-stocks-agent, можно указать `FAMILY_OFFICE` = его `STOCKS_DESK`: структура папок совместима, оба агента будут работать с одними и теми же папками. Ещё проще — общая папка `INVEST_VAULT` для всех агентов (см. ниже).
+
+## База знаний в Obsidian
+Хранилище агента — это готовая **LLM-вики в формате Obsidian**: markdown-заметки со ссылками `[[...]]` и свойствами (YAML-frontmatter), которые агент пишет и читает сам. Откройте папку `~/family-office` в Obsidian («Открыть папку как хранилище») и увидите граф связей, обратные ссылки и свойства.
+
+- **Хаб на каждую бумагу** — `SBER/SBER.md`: вердикт, оценка, дата разбора и ссылки на тезис, разборы, конспекты отчётов, новости.
+- **Сырые документы — вложения**, рядом заметка-конспект с цифрами и номерами страниц.
+- **`log.md` — журнал знаний**: что агент узнал, вывел или исправил, с источником. **`index.md`** собирается автоматически.
+- **Проверка вики** (`wiki.py lint`): битые ссылки, цифры без источника, устаревшие тезисы, незаконспектированные отчёты, противоречия между заметками.
+- **Недельный дайджест** (`wiki.py digest`), **шаблоны** заметок, **сквозные темы** (`topics/`: ставка ЦБ, отрасли).
+- **Все агенты в одном Obsidian:** задайте всем `INVEST_VAULT=~/invest-vault` — у каждого будет своя подпапка, а темы, шаблоны и стартовая страница станут общими. Формат одинаковый во всех агентах семейства: [`references/wiki.md`](skills/finance/ru-portfolio/references/wiki.md).
+- Личные данные (портфель, количества, средние цены, брифинги) в вики не попадают и лежат в файлах из `.gitignore` хранилища.
+
 
 ## Установка
 ```bash
@@ -89,6 +105,8 @@ git clone https://github.com/ildargiv/ru-portfolio-agent.git && cd ru-portfolio-
 - «Недельный обзор» · «Не слишком ли у меня много нефтянки?»
 - «Разбери Татнефть комитетом: держать или сокращать?»
 - «Вышел отчёт МТС — что это значит для моей позиции?»
+- «Что мы уже знаем про долг Магнита? Посмотри в базе знаний»
+- «Проверь базу знаний и пришли недельный дайджест»
 
 ## Проверка скриптов вручную
 ```bash
@@ -97,6 +115,8 @@ python3 $S/portfolio.py set "SBER:100@285, LKOH:5@6900" MGNT
 python3 $S/portfolio.py session --save
 python3 $S/news.py SBER LKOH MGNT --days 3
 python3 $S/portfolio.py review
+python3 $S/wiki.py init      # база знаний Obsidian
+python3 $S/wiki.py lint      # проверка вики
 ```
 
 ## Семейство агентов
@@ -109,8 +129,10 @@ python3 $S/portfolio.py review
 | [Семейный офис · ru-portfolio-agent](https://github.com/ildargiv/ru-portfolio-agent) | портфель акций: ежедневный брифинг после закрытия биржи, недельный обзор против IMOEX | `git clone https://github.com/ildargiv/ru-portfolio-agent.git && cd ru-portfolio-agent && ./install.sh claude` |
 | [FinEx · finex-agent](https://github.com/ildargiv/finex-agent) | пайщикам фондов FinEx в ликвидации: документы, новости, модель выплаты на пай | `git clone https://github.com/ildargiv/finex-agent.git && cd finex-agent && ./install.sh claude` |
 
+Все агенты пишут базу знаний в одном формате Obsidian-вики: задайте им общую папку `INVEST_VAULT=~/invest-vault`, и акции, портфель, облигации и FinEx окажутся в одном хранилище Obsidian со связями между заметками.
+
 ## English
-**Family Office (ru-portfolio-agent)** is an open-source AI agent skill that runs a portfolio of Russian stocks (Moscow Exchange, MOEX) like a small family office. Give it your tickers once; after every trading session it reviews each holding against the IMOEX index and its sector (volume, gaps, 52-week levels, 200-day average, dividend record dates, verified news), sends a short briefing, and publishes a weekly review (returns vs IMOEX, volatility, beta, drawdown, attribution, thesis health). Material events trigger a full investment committee with a devil's advocate. Built on the open Agent Skills standard (SKILL.md); works in Hermes Agent, OpenClaw, Claude Code and Codex CLI. Your portfolio stays on your computer. The agent answers in Russian. Analytics only, not investment advice.
+**Family Office (ru-portfolio-agent)** is an open-source AI agent skill that runs a portfolio of Russian stocks (Moscow Exchange, MOEX) like a small family office. Give it your tickers once; after every trading session it reviews each holding against the IMOEX index and its sector (volume, gaps, 52-week levels, 200-day average, dividend record dates, verified news), sends a short briefing, and publishes a weekly review (returns vs IMOEX, volatility, beta, drawdown, attribution, thesis health). Material events trigger a full investment committee with a devil's advocate. Its storage is an **Obsidian-compatible LLM wiki**: markdown notes with [[wikilinks]] and YAML frontmatter that the agent reads and writes itself (hub note per holding, source notes for raw documents, a knowledge log, generated index, wiki lint for broken links, uncited numbers, stale notes and contradictions, weekly digest). All agents of the family share one format and can live in one Obsidian vault (`INVEST_VAULT`). Built on the open Agent Skills standard (SKILL.md); works in Hermes Agent, OpenClaw, Claude Code and Codex CLI. Your portfolio stays on your computer. The agent answers in Russian. Analytics only, not investment advice.
 
 ## Лицензия
 MIT, см. [LICENSE](LICENSE).

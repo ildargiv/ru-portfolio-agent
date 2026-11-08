@@ -4,3 +4,5 @@ publish/
 .DS_Store
 # личные данные портфеля не коммитим в этот репозиторий
 family-office/
+invest-vault/
+.obsidian/

@@ -4,7 +4,7 @@
 
 Для любой задачи по портфелю открой `skills/finance/ru-portfolio/SKILL.md` и работай по его процедурам. Справочники — `skills/finance/ru-portfolio/references/` (ежедневный брифинг и недельный обзор — `family-office.md`, инвесткомитет — `expert-panel.md`), скрипты — `skills/finance/ru-portfolio/scripts/` (Python 3.9+, стандартная библиотека; для PDF — `pip install pypdf`).
 
-Хранилище: `~/family-office/` (или переменная `FAMILY_OFFICE`): `portfolio.json`, `_portfolio/` (брифинги, обзоры, история), по папке на каждую бумагу.
+Хранилище: `~/family-office/` (или переменная `FAMILY_OFFICE`): `portfolio.json`, `_portfolio/` (брифинги, обзоры, история), по папке на каждую бумагу. Это Obsidian-вики (хаб `<ТИКЕР>/<ТИКЕР>.md`, `index.md`, журнал знаний `log.md`), формат — `skills/finance/ru-portfolio/references/wiki.md`; `INVEST_VAULT` — общее хранилище всех агентов (папка `stocks/`, общая с агентом акций).
 
 Быстрые команды из корня репозитория:
 ```bash
@@ -15,6 +15,8 @@ python skills/finance/ru-portfolio/scripts/news.py SBER LKOH MGNT --days 3      
 python skills/finance/ru-portfolio/scripts/portfolio.py review --save           # недельный обзор
 python skills/finance/ru-portfolio/scripts/moex_share.py SBER --save            # карточка бумаги
 python skills/finance/ru-portfolio/scripts/valuation.py --ticker SBER --net-income 1580 --dps 34.84
+python skills/finance/ru-portfolio/scripts/wiki.py find "долг" --entity MGNT   # что уже известно
+python skills/finance/ru-portfolio/scripts/wiki.py lint --save                  # проверка базы знаний
 ```
 
-Правила: только свежие данные с датой и источником; всё найденное — в папки; адвокат дьявола каждый день; новости и форумы — гипотезы до проверки; выводы — аналитика, а не индивидуальная инвестиционная рекомендация.
+Правила: только свежие данные с датой и источником; всё найденное — в папки и в базу знаний (конспекты, `log.md`, у каждой цифры источник; позиции и количества — только в `portfolio.json`); адвокат дьявола каждый день; новости и форумы — гипотезы до проверки; выводы — аналитика, а не индивидуальная инвестиционная рекомендация.

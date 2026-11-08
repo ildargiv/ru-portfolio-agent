@@ -71,6 +71,7 @@ Write-Host "Хранилище семейного офиса: $desk"
 $py = Find-Python
 if ($py) {
     try { & $py -m pip install --user --quiet pypdf } catch { Write-Host "Для чтения PDF: $py -m pip install pypdf" }
+    try { & $py (Join-Path $Src "scripts\wiki.py") init | Out-Null; Write-Host "База знаний Obsidian готова: откройте хранилище в Obsidian" } catch { Write-Host "База знаний: python wiki.py init" }
     Write-Host "Проверка доступа к MOEX..."
     try { & $py (Join-Path $Src "scripts\moex_share.py") SBER | Select-Object -First 3 } catch { Write-Host "MOEX ISS недоступен — проверьте сеть" }
 } else {
