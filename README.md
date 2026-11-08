@@ -1,10 +1,10 @@
 # Семейный офис — ИИ-агент для портфеля российских акций
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-0E7A5C) ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white) ![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-ready-555) ![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-555) ![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-D97757) ![Codex CLI](https://img.shields.io/badge/Codex%20CLI-ready-555)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-0E7A5C) ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white) ![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-ready-555) ![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-555) ![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-D97757) ![Codex CLI](https://img.shields.io/badge/Codex%20CLI-ready-555) [![checks](https://github.com/ildargiv/ru-portfolio-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/ildargiv/ru-portfolio-agent/actions/workflows/ci.yml) [![release](https://img.shields.io/github/v/release/ildargiv/ru-portfolio-agent?label=release)](https://github.com/ildargiv/ru-portfolio-agent/releases)
 
 **Открытый ИИ-агент для ведения портфеля акций Мосбиржи** для Hermes Agent, OpenClaw, Claude Code и Codex CLI: ежедневный брифинг после закрытия торгов, недельный обзор против IMOEX, риск, дивиденды и отсечки, инвесткомитет по событиям, база знаний в Obsidian.
 
-[Презентация агента](https://ildargiv.github.io/ru-portfolio-agent/) · [English](#english) · [База знаний в Obsidian](#база-знаний-в-obsidian) · [Семейство агентов](#семейство-агентов) · [Установка](#установка)
+[Презентация агента](https://ildargiv.github.io/ru-portfolio-agent/?utm_source=github&utm_medium=readme&utm_campaign=ru-portfolio-agent) · [English](#english) · [База знаний в Obsidian](#база-знаний-в-obsidian) · [Семейство агентов](#семейство-агентов) · [Установка](#установка)
 
 ![Семейный офис: ИИ-агент для портфеля акций Мосбиржи, брифинг по сессии против IMOEX](docs/preview.png)
 
