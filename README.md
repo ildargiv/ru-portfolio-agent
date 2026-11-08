@@ -100,14 +100,14 @@ python3 $S/portfolio.py review
 ```
 
 ## Семейство агентов
-Четыре открытых агента для российского рынка с одинаковой установкой и общей структурой папок:
+Каждый агент живёт в своём репозитории и ставится отдельно. Если нужен ещё один, установите его рядом, одной командой (для Claude Code: `./install.sh claude`, для Hermes: `./install.sh`):
 
-| Агент | Для чего |
-|---|---|
-| [Инвесткомитет · ru-stocks-agent](https://github.com/ildargiv/ru-stocks-agent) | анализ акций Мосбиржи: список наблюдения, папка на акцию, инвесткомитет с адвокатом дьявола |
-| [Облигационер · ru-bonds-agent](https://github.com/ildargiv/ru-bonds-agent) | облигации РФ: ОФЗ и корпоративные выпуски, YTM, дюрация, кредитный скоринг, скринер |
-| [Семейный офис · ru-portfolio-agent](https://github.com/ildargiv/ru-portfolio-agent) | портфель акций: ежедневный брифинг после закрытия биржи, недельный обзор против IMOEX |
-| [FinEx · finex-agent](https://github.com/ildargiv/finex-agent) | пайщикам фондов FinEx в ликвидации: документы, новости, модель выплаты на пай |
+| Агент | Для чего | Установка |
+|---|---|---|
+| [Инвесткомитет · ru-stocks-agent](https://github.com/ildargiv/ru-stocks-agent) | анализ акций Мосбиржи: список наблюдения, папка на акцию, инвесткомитет с адвокатом дьявола | `git clone https://github.com/ildargiv/ru-stocks-agent.git && cd ru-stocks-agent && ./install.sh claude` |
+| [Облигационер · ru-bonds-agent](https://github.com/ildargiv/ru-bonds-agent) | облигации РФ: ОФЗ и корпоративные выпуски, YTM, дюрация, кредитный скоринг, скринер | `git clone https://github.com/ildargiv/ru-bonds-agent.git && cd ru-bonds-agent && ./install.sh claude` |
+| [Семейный офис · ru-portfolio-agent](https://github.com/ildargiv/ru-portfolio-agent) | портфель акций: ежедневный брифинг после закрытия биржи, недельный обзор против IMOEX | `git clone https://github.com/ildargiv/ru-portfolio-agent.git && cd ru-portfolio-agent && ./install.sh claude` |
+| [FinEx · finex-agent](https://github.com/ildargiv/finex-agent) | пайщикам фондов FinEx в ликвидации: документы, новости, модель выплаты на пай | `git clone https://github.com/ildargiv/finex-agent.git && cd finex-agent && ./install.sh claude` |
 
 ## English
 **Family Office (ru-portfolio-agent)** is an open-source AI agent skill that runs a portfolio of Russian stocks (Moscow Exchange, MOEX) like a small family office. Give it your tickers once; after every trading session it reviews each holding against the IMOEX index and its sector (volume, gaps, 52-week levels, 200-day average, dividend record dates, verified news), sends a short briefing, and publishes a weekly review (returns vs IMOEX, volatility, beta, drawdown, attribution, thesis health). Material events trigger a full investment committee with a devil's advocate. Built on the open Agent Skills standard (SKILL.md); works in Hermes Agent, OpenClaw, Claude Code and Codex CLI. Your portfolio stays on your computer. The agent answers in Russian. Analytics only, not investment advice.
