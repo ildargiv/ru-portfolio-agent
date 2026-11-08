@@ -1,8 +1,12 @@
-# Семейный офис — агент для портфеля российских акций
+# Семейный офис — ИИ-агент для портфеля российских акций
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-0E7A5C)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-0E7A5C) ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white) ![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-ready-555) ![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-555) ![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-D97757) ![Codex CLI](https://img.shields.io/badge/Codex%20CLI-ready-555)
 
-Навык по стандарту Agent Skills · Hermes Agent, OpenClaw, Claude Code, Codex CLI · из той же семьи, что [ru-stocks-agent](https://github.com/ildargiv/ru-stocks-agent) и [ru-bonds-agent](https://github.com/ildargiv/ru-bonds-agent)
+**Открытый ИИ-агент для ведения портфеля акций Мосбиржи** для Hermes Agent, OpenClaw, Claude Code и Codex CLI: ежедневный брифинг после закрытия торгов, недельный обзор против IMOEX, риск, дивиденды и отсечки, инвесткомитет по событиям.
+
+[Презентация агента](https://ildargiv.github.io/ru-portfolio-agent/) · [English](#english) · [Семейство агентов](#семейство-агентов) · [Установка](#установка)
+
+![Семейный офис: ИИ-агент для портфеля акций Мосбиржи, брифинг по сессии против IMOEX](docs/preview.png)
 
 Как будто у вас есть семейный офис с лучшими управляющими: вы даёте список своих акций, а команда каждый день следит за ними и докладывает.
 
@@ -76,6 +80,8 @@ git clone https://github.com/ildargiv/ru-portfolio-agent.git && cd ru-portfolio-
 
 Недельный обзор: `"0 10 * * 6"` и «…процедура 3: недельный обзор портфеля».
 
+![Пример ежедневного брифинга: разбор торговой сессии демо-портфеля и сообщение владельцу](docs/answer.png)
+
 ## Примеры запросов
 - «Мой портфель: SBER:100@285, LKOH:5@6900, MGNT»
 - «Что с портфелем сегодня?» · «Почему упал Магнит?»
@@ -92,6 +98,19 @@ python3 $S/portfolio.py session --save
 python3 $S/news.py SBER LKOH MGNT --days 3
 python3 $S/portfolio.py review
 ```
+
+## Семейство агентов
+Каждый агент живёт в своём репозитории и ставится отдельно. Если нужен ещё один, установите его рядом, одной командой (для Claude Code: `./install.sh claude`, для Hermes: `./install.sh`):
+
+| Агент | Для чего | Установка |
+|---|---|---|
+| [Инвесткомитет · ru-stocks-agent](https://github.com/ildargiv/ru-stocks-agent) | анализ акций Мосбиржи: список наблюдения, папка на акцию, инвесткомитет с адвокатом дьявола | `git clone https://github.com/ildargiv/ru-stocks-agent.git && cd ru-stocks-agent && ./install.sh claude` |
+| [Облигационер · ru-bonds-agent](https://github.com/ildargiv/ru-bonds-agent) | облигации РФ: ОФЗ и корпоративные выпуски, YTM, дюрация, кредитный скоринг, скринер | `git clone https://github.com/ildargiv/ru-bonds-agent.git && cd ru-bonds-agent && ./install.sh claude` |
+| [Семейный офис · ru-portfolio-agent](https://github.com/ildargiv/ru-portfolio-agent) | портфель акций: ежедневный брифинг после закрытия биржи, недельный обзор против IMOEX | `git clone https://github.com/ildargiv/ru-portfolio-agent.git && cd ru-portfolio-agent && ./install.sh claude` |
+| [FinEx · finex-agent](https://github.com/ildargiv/finex-agent) | пайщикам фондов FinEx в ликвидации: документы, новости, модель выплаты на пай | `git clone https://github.com/ildargiv/finex-agent.git && cd finex-agent && ./install.sh claude` |
+
+## English
+**Family Office (ru-portfolio-agent)** is an open-source AI agent skill that runs a portfolio of Russian stocks (Moscow Exchange, MOEX) like a small family office. Give it your tickers once; after every trading session it reviews each holding against the IMOEX index and its sector (volume, gaps, 52-week levels, 200-day average, dividend record dates, verified news), sends a short briefing, and publishes a weekly review (returns vs IMOEX, volatility, beta, drawdown, attribution, thesis health). Material events trigger a full investment committee with a devil's advocate. Built on the open Agent Skills standard (SKILL.md); works in Hermes Agent, OpenClaw, Claude Code and Codex CLI. Your portfolio stays on your computer. The agent answers in Russian. Analytics only, not investment advice.
 
 ## Лицензия
 MIT, см. [LICENSE](LICENSE).
